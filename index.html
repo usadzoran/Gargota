@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RÉSERVA</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f6f6f6;
+    color:#222;
+}
+
+/* =========================
+   SPLASH SCREEN
+========================= */
+
+#splash{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#111,#292929);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    z-index:9999;
+}
+
+.splash-content{
+    animation:fadeIn 1.2s ease;
+}
+
+.logo{
+    width:95px;
+    height:95px;
+    border-radius:28px;
+    background:linear-gradient(135deg,#d4af37,#f5d76e);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    color:#111;
+    font-size:38px;
+    font-weight:bold;
+    box-shadow:0 10px 40px rgba(212,175,55,.3);
+}
+
+.splash-title{
+    font-size:34px;
+    margin-top:20px;
+    letter-spacing:4px;
+}
+
+.splash-subtitle{
+    color:#bbb;
+    margin-top:8px;
+    margin-bottom:35px;
+}
+
+.enter-btn{
+    border:none;
+    padding:16px 55px;
+    border-radius:40px;
+    background:#d4af37;
+    color:#111;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.enter-btn:hover{
+    transform:scale(1.05);
+    background:#f0ca52;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    background:#111;
+    color:white;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.header-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.small-logo{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:#d4af37;
+    color:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.back-btn{
+    border:none;
+    background:#333;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    display:none;
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px 50px;
+}
+
+.page-title{
+    text-align:center;
+    font-size:28px;
+    margin:15px 0 8px;
+}
+
+.page-subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:30px;
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+    gap:22px;
+}
+
+.category-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.category-card:hover{
+    transform:translateY(-7px);
+}
+
+.category-image{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.category-info{
+    padding:18px;
+}
+
+.category-info h2{
+    margin-bottom:8px;
+}
+
+.rating{
+    color:#d4af37;
+    font-size:19px;
+}
+
+.rating span{
+    color:#777;
+    font-size:14px;
+    margin-right:5px;
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.details-hero{
+    position:relative;
+    height:300px;
+    border-radius:25px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.details-hero img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.8)
+    );
+    display:flex;
+    align-items:flex-end;
+    padding:25px;
+    color:white;
+}
+
+.hero-overlay h1{
+    font-size:32px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.info-box{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.info-icon{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.info-box h3{
+    margin-bottom:7px;
+}
+
+.info-box p{
+    color:#666;
+    line-height:1.6;
+}
+
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.section-title{
+    margin:30px 0 15px;
+    font-size:23px;
+}
+
+.portfolio{
+    display:grid;
+    grid-template-columns:
+    repeat(5,1fr);
+    gap:10px;
+}
+
+.portfolio img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.portfolio img:hover{
+    transform:scale(1.03);
+}
+
+
+/* =========================
+   PRICE
+========================= */
+
+.price-box{
+    background:#111;
+    color:white;
+    padding:25px;
+    border-radius:20px;
+    margin-top:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price{
+    color:#d4af37;
+    font-size:27px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   DAYS
+========================= */
+
+.days{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.day{
+    padding:10px 16px;
+    background:#e9e9e9;
+    border-radius:30px;
+}
+
+.day.available{
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-top:25px;
+}
+
+.contact-btn{
+    border:none;
+    padding:13px 20px;
+    border-radius:10px;
+    margin-top:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.phone{
+    background:#111;
+    color:white;
+}
+
+.email{
+    background:#eee;
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+.map{
+    height:220px;
+    background:
+    linear-gradient(
+        135deg,
+        #d9e7d9,
+        #bcd2bc
+    );
+    border-radius:20px;
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#555;
+    font-size:18px;
+    position:relative;
+    overflow:hidden;
+}
+
+.map::before{
+    content:"";
+    position:absolute;
+    width:140%;
+    height:3px;
+    background:#fff;
+    transform:rotate(25deg);
+    box-shadow:
+    0 50px #fff,
+    0 100px #fff,
+    0 150px #fff;
+}
+
+.map-pin{
+    position:relative;
+    z-index:2;
+    background:#d4af37;
+    color:#111;
+    width:55px;
+    height:55px;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.map-pin span{
+    transform:rotate(45deg);
+    font-size:25px;
+}
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+#lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+#lightbox img{
+    max-width:90%;
+    max-height:85%;
+    border-radius:15px;
+}
+
+.close-lightbox{
+    position:absolute;
+    top:20px;
+    right:25px;
+    color:white;
+    font-size:35px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:700px){
+
+    .portfolio{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .portfolio img{
+        height:140px;
+    }
+
+    .details-hero{
+        height:240px;
+    }
+
+    .hero-overlay h1{
+        font-size:25px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SPLASH
+========================= -->
+
+<div id="splash">
+
+    <div class="splash-content">
+
+        <div class="logo">
+            R
+        </div>
+
+        <div class="splash-title">
+            RÉSERVA
+        </div>
+
+        <div class="splash-subtitle">
+            Découvrez • Choisissez • Réservez
+        </div>
+
+        <button
+            class="enter-btn"
+            onclick="enterApp()"
+        >
+            Entrée
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="header-logo">
+
+        <div class="small-logo">
+            R
+        </div>
+
+        RÉSERVA
+
+    </div>
+
+
+    <button
+        id="backButton"
+        class="back-btn"
+        onclick="showCategories()"
+    >
+        ← Retour
+    </button>
+
+</header>
+
+
+
+<!-- =========================
+     CATEGORIES PAGE
+========================= -->
+
+<div
+    id="categoriesPage"
+    class="page"
+>
+
+    <div class="container">
+
+        <h1 class="page-title">
+            Découvrez nos espaces
+        </h1>
+
+        <p class="page-subtitle">
+            Choisissez le lieu الذي يناسبك
+        </p>
+
+
+        <div class="categories">
+
+
+            <!-- WEDDING -->
+
+            <div
+                class="category-card"
+                onclick="showDetails('wedding')"
+            >
+
+                <img
+                    class="category-image"
+                    src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80"
+                >
+
+                <div class="category-info">
+
+                    <h2>
+                        قاعة الأعراس
+                    </h2>
+
+                    <div class="rating">
+
+                        ★★★★★
+
+                        <span>
+                            4.9 / 5
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SPORT -->
+
+            <div
+                class="category-card"
+                onclick="showDetails('sport')"
+            >
+
+                <img
+                    class="category-image"
+                    src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80"
+                >
+
+                <div class="category-info">
+
+                    <h2>
+                        قاعة الرياضة
+                    </h2>
+
+                    <div class="rating">
+
+                        ★★★★☆
+
+                        <span>
+                            4.7 / 5
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     DETAILS PAGE
+========================= -->
+
+<div
+    id="detailsPage"
+    class="page"
+>
+
+    <div class="container">
+
+        <div id="detailsContent"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     LIGHTBOX
+========================= -->
+
+<div
+    id="lightbox"
+    onclick="closeLightbox()"
+>
+
+    <div
+        class="close-lightbox"
+    >
+        ×
+    </div>
+
+    <img
+        id="lightboxImage"
+        src=""
+    >
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   DATA
+========================= */
+
+const places = {
+
+
+    wedding:{
+
+        name:"قاعة الأعراس",
+
+        title:"قاعة اللؤلؤة للأعراس",
+
+        rating:"★★★★★",
+
+        ratingNumber:"4.9 / 5",
+
+        mainImage:
+        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1400&q=80",
+
+        phone:
+        "+213 550 00 00 00",
+
+        email:
+        "contact@perle-dz.com",
+
+        address:
+        "وهران، الجزائر",
+
+        price:
+        "ابتداءً من 120,000 دج",
+
+        location:
+        "وهران - الجزائر",
+
+        days:[
+            "السبت",
+            "الأحد",
+            "الخميس",
+            "الجمعة"
+        ],
+
+        portfolio:[
+
+            "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=80"
+
+        ]
+
+    },
+
+
+    sport:{
+
+        name:"قاعة الرياضة",
+
+        title:"Fitness Arena",
+
+        rating:"★★★★☆",
+
+        ratingNumber:"4.7 / 5",
+
+        mainImage:
+        "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1400&q=80",
+
+        phone:
+        "+213 560 11 22 33",
+
+        email:
+        "contact@fitnessarena.dz",
+
+        address:
+        "وهران، الجزائر",
+
+        price:
+        "ابتداءً من 2,500 دج / شهر",
+
+        location:
+        "وهران - الجزائر",
+
+        days:[
+            "السبت",
+            "الأحد",
+            "الإثنين",
+            "الثلاثاء",
+            "الأربعاء",
+            "الخميس"
+        ],
+
+        portfolio:[
+
+            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1000&q=80",
+
+            "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=80"
+
+        ]
+
+    }
+
+};
+
+
+
+/* =========================
+   ENTER APP
+========================= */
+
+function enterApp(){
+
+    document
+    .getElementById("splash")
+    .style.display="none";
+
+    showCategories();
+
+}
+
+
+
+/* =========================
+   SHOW CATEGORIES
+========================= */
+
+function showCategories(){
+
+    document
+    .getElementById("categoriesPage")
+    .classList.add("active");
+
+    document
+    .getElementById("detailsPage")
+    .classList.remove("active");
+
+    document
+    .getElementById("backButton")
+    .style.display="none";
+
+}
+
+
+
+/* =========================
+   SHOW DETAILS
+========================= */
+
+function showDetails(id){
+
+    const place=places[id];
+
+    const content=
+    document.getElementById("detailsContent");
+
+
+    let portfolioHTML="";
+
+
+    place.portfolio.forEach(image=>{
+
+        portfolioHTML+=`
+
+            <img
+                src="${image}"
+                onclick="openLightbox('${image}')"
+            >
+
+        `;
+
+    });
+
+
+    let daysHTML="";
+
+    const allDays=[
+        "السبت",
+        "الأحد",
+        "الإثنين",
+        "الثلاثاء",
+        "الأربعاء",
+        "الخميس",
+        "الجمعة"
+    ];
+
+
+    allDays.forEach(day=>{
+
+        const available=
+        place.days.includes(day);
+
+        daysHTML+=`
+
+            <div class="day ${
+                available ? "available" : ""
+            }">
+
+                ${day}
+
+                ${
+                    available
+                    ? " ✓"
+                    : ""
+                }
+
+            </div>
+
+        `;
+
+    });
+
+
+    content.innerHTML=`
+
+        <!-- HERO -->
+
+        <div class="details-hero">
+
+            <img
+                src="${place.mainImage}"
+            >
+
+            <div class="hero-overlay">
+
+                <div>
+
+                    <h1>
+                        ${place.title}
+                    </h1>
+
+                    <div class="rating">
+
+                        ${place.rating}
+
+                        <span>
+                            ${place.ratingNumber}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMATION -->
+
+        <div class="info-grid">
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    📍
+                </div>
+
+                <h3>
+                    العنوان
+                </h3>
+
+                <p>
+                    ${place.address}
+                </p>
+
+            </div>
+
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    📞
+                </div>
+
+                <h3>
+                    الهاتف
+                </h3>
+
+                <p>
+                    ${place.phone}
+                </p>
+
+            </div>
+
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    ✉️
+                </div>
+
+                <h3>
+                    البريد الإلكتروني
+                </h3>
+
+                <p>
+                    ${place.email}
+                </p>
+
+            </div>
+
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    التقييم
+                </h3>
+
+                <p>
+                    ${place.ratingNumber}
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PORTFOLIO -->
+
+        <h2 class="section-title">
+            📸 Portfolio
+        </h2>
+
+        <div class="portfolio">
+
+            ${portfolioHTML}
+
+        </div>
+
+
+
+        <!-- PRICE -->
+
+        <div class="price-box">
+
+            <div>
+
+                <h3>
+                    السعر
+                </h3>
+
+                <p>
+                    السعر حسب الخدمة والحجز
+                </p>
+
+            </div>
+
+            <div class="price">
+                ${place.price}
+            </div>
+
+        </div>
+
+
+
+        <!-- LOCATION -->
+
+        <h2 class="section-title">
+            📍 الموقع
+        </h2>
+
+        <div class="info-box">
+
+            <h3>
+                ${place.location}
+            </h3>
+
+            <div class="map">
+
+                <div class="map-pin">
+
+                    <span>
+                        📍
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DAYS -->
+
+        <h2 class="section-title">
+            📅 الأيام المتاحة
+        </h2>
+
+        <div class="info-box">
+
+            <div class="days">
+
+                ${daysHTML}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONTACT -->
+
+        <div class="contact-box">
+
+            <h2>
+                📞 معلومات التواصل
+            </h2>
+
+            <p style="margin-top:10px;color:#666">
+
+                ${place.phone}
+
+                <br>
+
+                ${place.email}
+
+            </p>
+
+            <button
+                class="contact-btn phone"
+                onclick="alert('هنا سيتم الاتصال بصاحب القسم')"
+            >
+                📞 اتصل الآن
+            </button>
+
+            <button
+                class="contact-btn email"
+                onclick="alert('هنا سيتم فتح البريد الإلكتروني')"
+            >
+                ✉️ إرسال بريد إلكتروني
+            </button>
+
+        </div>
+
+    `;
+
+
+    document
+    .getElementById("categoriesPage")
+    .classList.remove("active");
+
+    document
+    .getElementById("detailsPage")
+    .classList.add("active");
+
+    document
+    .getElementById("backButton")
+    .style.display="block";
+
+    window.scrollTo(0,0);
+
+}
+
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+function openLightbox(image){
+
+    document
+    .getElementById("lightboxImage")
+    .src=image;
+
+    document
+    .getElementById("lightbox")
+    .style.display="flex";
+
+}
+
+
+function closeLightbox(){
+
+    document
+    .getElementById("lightbox")
+    .style.display="none";
+
+}
+
+
+</script>
+
+
+</body>
+</html>
